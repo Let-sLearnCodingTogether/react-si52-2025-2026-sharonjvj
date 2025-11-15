@@ -15,7 +15,7 @@ function Movies() {
     const [movie, setMovies] = useState<Movie[]>([])
 
     const fetchMovies = useCallback(async () => {
-        const response = await ApiClient.get<Movie[]>('/movies')
+        const response = await ApiClient.get('/movies')
 
         if(response.status == 200){
             setMovies(response.data.data)
