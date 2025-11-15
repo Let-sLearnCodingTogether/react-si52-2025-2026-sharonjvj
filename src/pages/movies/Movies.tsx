@@ -24,7 +24,9 @@ function Movies() {
 
     ])
 
-    useEffect(() => {}, [])
+    useEffect(() => {
+        fetchMovies()
+    }, [fetchMovies])
 
     
 
