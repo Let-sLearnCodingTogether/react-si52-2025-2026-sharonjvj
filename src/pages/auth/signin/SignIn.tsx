@@ -1,23 +1,23 @@
 import { useState, type ChangeEvent, type FormEvent } from "react"
 import { Button, Form } from "react-bootstrap"
-import ApiClient from "../../../utils/ApiClient"
 import { NavLink } from "react-router"
+import ApiClient from "../../../utils/ApiClient"
 
-interface SignUpForm {
-    username : string,
+
+interface SignInForm {
     email : string,
     password : string
 }
 
-function SignUp() {
-    const [form, setForm] = useState<SignUpForm>({
-            username : "",
-            email : "",
-            password : ""
+
+function SignIn() {
+    const [form, setForm] = useState<SignInForm>({
+        email : "",
+        password : ""
     })
 
     const onHandleChange = (event : ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target
+        const {value, name} = event.target
         setForm({
             ...form,
             [name] : value
@@ -27,7 +27,7 @@ function SignUp() {
     const onSubmit = async (event : FormEvent<HTMLFormElement>) => {
             event.preventDefault();
             try {
-                const response = await ApiClient.post('/signup', form)
+                const response = await ApiClient.post('/signin', form)
                 console.log(response);
                 
             } catch (error) {
@@ -37,19 +37,10 @@ function SignUp() {
 
     return<div className="container mx-auto">
         <div className="d-flex justify-content-between mb-3">
-            <h1>Sign Up</h1>
+            <h1>Sign In</h1>
         </div>
         <div>
             <Form onSubmit={onSubmit}>
-                <Form.Group className="mb-3" controlId="formUsername">
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control
-                        value={form.username}
-                        onChange={onHandleChange}
-                        name= "username"
-                        type="username" 
-                        placeholder="Username" />
-                </Form.Group>
                 <Form.Group className="mb-3" controlId="formEmail">
                     <Form.Label>Email</Form.Label>
                     <Form.Control
@@ -69,13 +60,11 @@ function SignUp() {
                         placeholder="Password" />
                 </Form.Group>
 
-                <Button type="submit" variant="primary">Sign Up</Button>
-                <br></br>
-                <NavLink to="/signin">Sign In</NavLink>
+                <Button type="submit" variant="primary">Sign In</Button>
+                <NavLink to="/">Sign Up</NavLink>
             </Form>
         </div>
 </div>
 }
 
-
-export default SignUp
+export default SignIn
